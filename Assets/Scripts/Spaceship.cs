@@ -26,25 +26,21 @@ public class Spaceship : MonoBehaviour
 
         if (Keyboard.current.upArrowKey.isPressed)
         {
-            Debug.Log("Up Arrow Pressed");
-            rigidBody.AddForce(transform.up * 500f * Time.deltaTime);
+            rigidBody.AddForce(transform.forward * 500f * Time.deltaTime);
         }
         if (Keyboard.current.downArrowKey.isPressed)
         {
-            Debug.Log("Down Arrow Pressed");
-            rigidBody.AddForce(-transform.up * 500f * Time.deltaTime);
+            rigidBody.AddForce(-transform.forward * 500f * Time.deltaTime);
         }
 
         // Since the spaceship model was created with y as the up axis, we rotate around z
         if (Keyboard.current.leftArrowKey.isPressed)
         {
-            Debug.Log("Left Arrow Pressed");
-            transform.Rotate(0f, 0f, -2f * Time.deltaTime * 60f);
+            transform.Rotate(0f, -2.5f * Time.deltaTime * 60f, 0f);
         }
         if (Keyboard.current.rightArrowKey.isPressed)
         {
-            Debug.Log("Right Arrow Pressed");
-            transform.Rotate(0f, 0f, 2f * Time.deltaTime * 60f);
+            transform.Rotate(0f,2.5f * Time.deltaTime * 60f, 0f);
         }
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
@@ -58,7 +54,7 @@ public class Spaceship : MonoBehaviour
 
         // Instantiate the bullet slightly in front of the ship --  so it doesn't collide with the ship
 
-        Vector3 spawnPos = transform.position + transform.up * 1.5f;
+        Vector3 spawnPos = transform.position + transform.forward * 1.5f;
 
         // Use the ship's rotation so the bullet faces the same direction
         GameObject bullet = Instantiate(bulletPrefab, spawnPos, transform.rotation);
@@ -68,11 +64,11 @@ public class Spaceship : MonoBehaviour
             float bulletSpeed = 50f;
             if (rigidBody != null)
             {
-                bulletRb.linearVelocity = rigidBody.linearVelocity + transform.up * bulletSpeed;
+                bulletRb.linearVelocity = rigidBody.linearVelocity + transform.forward * bulletSpeed;
             }
             else
             {
-                bulletRb.linearVelocity = transform.up * bulletSpeed;
+                bulletRb.linearVelocity = transform.forward * bulletSpeed;
             }
         }
         yield return new WaitForSeconds(0.25f);

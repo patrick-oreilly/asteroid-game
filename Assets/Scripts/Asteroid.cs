@@ -7,6 +7,9 @@ public class Asteroid : MonoBehaviour
     public Rigidbody rigidBody;
     public GameObject asteroidFragmentPrefab;
     public int numberOfParticles = 1;
+
+    public enum AsteroidSize { Small, Big}
+    public AsteroidSize asteroidSize = AsteroidSize.Big;
     //
     // Use this for initialization
     void Start()
@@ -19,14 +22,16 @@ public class Asteroid : MonoBehaviour
 
         rigidBody.mass = transform.localScale.x * transform.localScale.y * transform.localScale.z;
         // randomise velocity
+
         rigidBody.linearVelocity = new Vector3(Random.Range(-20f, 20f), 0f, Random.Range(-20f, 20f));
-        rigidBody.angularVelocity = new Vector3(Random.Range(-2f, 2f), Random.Range(-
-        2f, 2f), Random.Range(-2f, 2f));
-        // start periodically checking for being off-scree
+        rigidBody.angularVelocity = new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), Random.Range(-2f, 2f));
+
+        // start periodically checking for being off-screen
         InvokeRepeating("CheckScreenEdges", 0.2f, 0.2f);
 
     }
 
+    // Our onCollision enter method 
     public void OnCollisionEnter(Collision collision)
     {
         // Only spawn particles if not colliding with another particle
@@ -35,8 +40,19 @@ public class Asteroid : MonoBehaviour
         {
             SpawnParticleEffect(collision.contacts[0].point);
         }
+        if (collision.gameObject.tag == "Spaceship")
+        {
+            Destroy(collision.gameObject);
+            if (GameManager.instance != null)
+            {
+                GameManager.instance.respawn();
+            }
+            // If they collide, the asteroid is fragmented too!
+            fragmentAsteroid();
+        }
+        else
 
-        if (collision.gameObject.tag == "bullet")
+        if (collision.gameObject.tag == "Bullet")
         {
             fragmentAsteroid();
             Destroy(collision.gameObject);
@@ -66,7 +82,35 @@ public class Asteroid : MonoBehaviour
 
     private void fragmentAsteroid()
     {
-        // To be implemented in future versions
+        Destroy(gameObject);
+        
+        if (asteroidSize == AsteroidSize.Small) { return; }
+        
+        // Fragment into smaller asteroids
+        AsteroidSize newSize = AsteroidSize.Small;
+        // spawn a few fragments
+        int fragmentsToSpawn = Random.Range(2, 4);
+        for (int i = 0; i < fragmentsToSpawn; i++)
+        {
+            GameObject fragment = Instantiate(gameObject, transform.position, Quaternion.identity);
+            Asteroid fragmentAsteroid = fragment.GetComponent<Asteroid>();
+            if (fragmentAsteroid != null)
+            {
+                fragmentAsteroid.asteroidSize = newSize;
+                float scaleFactor = 0.8f;
+                fragment.transform.localScale = transform.localScale * scaleFactor;
+                Rigidbody fragmentRb = fragment.GetComponent<Rigidbody>();
+                if (fragmentRb != null)
+                {
+                    fragmentRb.linearVelocity = new Vector3(Random.Range(-15f, 15f), 0f, Random.Range(-15f, 15f));
+                    fragmentRb.angularVelocity = new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), Random.Range(-2f, 2f));
+                }
+                // Ensure screen wrapping works for the fragments
+                fragmentAsteroid.CancelInvoke("CheckScreenEdges");
+                fragmentAsteroid.InvokeRepeating("CheckScreenEdges", 0.2f, 0.2f);
+            }
+        }
+    
     }
     private void CheckScreenEdges()
     {

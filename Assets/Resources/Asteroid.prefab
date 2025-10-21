@@ -139,6 +139,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c65aa20a9ad104baaa85e9b18b295cbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Asteroid
-  rigidBody: {fileID: 0}
+  rigidBody: {fileID: 6431332221839715766}
   asteroidFragmentPrefab: {fileID: 5280478787446357179, guid: dc3662879f930443dbb0bd1daebed651, type: 3}
+  spaceshipPrefab: {fileID: 0}
   numberOfParticles: 5
+  asteroidSize: 1

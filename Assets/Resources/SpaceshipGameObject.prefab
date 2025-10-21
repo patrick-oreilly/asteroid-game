@@ -9,9 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2776728765519682278}
+  - component: {fileID: 7592059262899759825}
+  - component: {fileID: 870347826355662365}
+  - component: {fileID: 363539211105188026}
   m_Layer: 0
   m_Name: SpaceshipGameObject
-  m_TagString: Untagged
+  m_TagString: Spaceship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24,14 +27,76 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5443187195505388961}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: -0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2367789206668837542}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7592059262899759825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5443187195505388961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37537844cefd146898adc856e7b5843f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spaceship
+  bulletPrefab: {fileID: 3871066785838857094, guid: f3b36510a0fa0434d918a3b9481d2640, type: 3}
+--- !u!54 &870347826355662365
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5443187195505388961}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0.05
+  m_AngularDamping: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 116
+  m_CollisionDetection: 0
+--- !u!64 &363539211105188026
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5443187195505388961}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3179657388898038257, guid: 473d7eb45fa73432ead6b764454cde84, type: 3}
 --- !u!1001 &2834640759104038221
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66,23 +131,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 473d7eb45fa73432ead6b764454cde84, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.6584649
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 473d7eb45fa73432ead6b764454cde84, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7526115
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 473d7eb45fa73432ead6b764454cde84, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 473d7eb45fa73432ead6b764454cde84, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 473d7eb45fa73432ead6b764454cde84, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -262.366
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 473d7eb45fa73432ead6b764454cde84, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -106,91 +171,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 473d7eb45fa73432ead6b764454cde84, type: 3}
       propertyPath: m_TagString
-      value: Spaceship
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 473d7eb45fa73432ead6b764454cde84, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1459780068904247613}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 473d7eb45fa73432ead6b764454cde84, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7629108619462065474}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 473d7eb45fa73432ead6b764454cde84, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6085392978838034921}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 473d7eb45fa73432ead6b764454cde84, type: 3}
 --- !u!4 &2367789206668837542 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 473d7eb45fa73432ead6b764454cde84, type: 3}
   m_PrefabInstance: {fileID: 2834640759104038221}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3141193745516484636 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 473d7eb45fa73432ead6b764454cde84, type: 3}
-  m_PrefabInstance: {fileID: 2834640759104038221}
-  m_PrefabAsset: {fileID: 0}
---- !u!64 &1459780068904247613
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3141193745516484636}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3179657388898038257, guid: 473d7eb45fa73432ead6b764454cde84, type: 3}
---- !u!114 &7629108619462065474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3141193745516484636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37537844cefd146898adc856e7b5843f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Spaceship
-  bulletPrefab: {fileID: 3871066785838857094, guid: f3b36510a0fa0434d918a3b9481d2640, type: 3}
---- !u!54 &6085392978838034921
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3141193745516484636}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0.05
-  m_AngularDamping: 0
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 116
-  m_CollisionDetection: 0

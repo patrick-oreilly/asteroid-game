@@ -4,6 +4,9 @@ public class GameManager : MonoBehaviour {
 
     public GameObject asteroidPrefab;
     public GameObject playerShip;
+
+    public enum AsteroidSize { Small, Big }
+    public AsteroidSize asteroidSize = AsteroidSize.Big;
 //
 // class-level statics
 public static GameManager instance;
@@ -24,7 +27,7 @@ public static float screenWidth, screenHeight;
         screenTopRight = Camera.main.ViewportToWorldPoint(new Vector3(1f, 1f, 30f));
         screenWidth = screenTopRight.x - screenBottomLeft.x;
         screenHeight = screenTopRight.z - screenBottomLeft.z;
-        CreatePlayerSpaceship();
+        respawn();
 
         StartNextLevel();
 
@@ -38,6 +41,21 @@ public static float screenWidth, screenHeight;
         for (int i = 0; i < currentGameLevel * 2 + 3; i++)
         {
             GameObject go = Instantiate(instance.asteroidPrefab) as GameObject;
+            Asteroid asteroid = go.GetComponent<Asteroid>();
+            if (asteroid != null)
+            {
+                int randomSize = Random.Range(0, 3);
+                asteroid.asteroidSize = (Asteroid.AsteroidSize)randomSize;
+
+                if (instance.asteroidSize == AsteroidSize.Small)
+                {
+                    asteroid.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+                }
+                else{
+                    asteroid.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+ 
+                }
+            }
             float x, z;
             if (Random.Range(0f, 1f) < 0.5f)
                 x = screenBottomLeft.x + Random.Range(0f, 0.15f) * screenWidth; // near the left edge
@@ -51,17 +69,21 @@ public static float screenWidth, screenHeight;
         }
     }
 
+    // start next level if all asteroids destroyed
     public static void AsteroidDestroyed()
     {
         if (GameObject.FindGameObjectsWithTag("Asteroid").Length == 0)
             StartNextLevel();
     }
+    
+    //quit game method
     public void QuitGame()
     {
         Application.Quit();
     }
 
-    public void CreatePlayerSpaceship()
+// respawn method
+    public void respawn()
     {
         if (playerShip == null)
         {
