@@ -42,10 +42,12 @@ public class Asteroid : MonoBehaviour
         }
         if (collision.gameObject.tag == "Spaceship")
         {
+            // Deactivate the spaceship immediately so respawn check won't find it
+            collision.gameObject.SetActive(false);
             Destroy(collision.gameObject);
             if (GameManager.instance != null)
             {
-                GameManager.instance.respawn();
+                GameManager.instance.LoseLife();
             }
             // If they collide, the asteroid is fragmented too!
             fragmentAsteroid();
@@ -54,6 +56,22 @@ public class Asteroid : MonoBehaviour
 
         if (collision.gameObject.tag == "Bullet")
         {
+            int score = 0;
+
+            if (asteroidSize == AsteroidSize.Big)
+            {
+                Debug.Log("Big asteroid hit! Adding 15 to score.");
+                score += 15;
+                
+            }
+            else
+            {
+                Debug.Log("Small asteroid hit! Adding 10 to score.");
+                score += 10;
+            }
+
+            GameManager.instance.AddScore(score);
+
             fragmentAsteroid();
             Destroy(collision.gameObject);
 
@@ -83,6 +101,7 @@ public class Asteroid : MonoBehaviour
     private void fragmentAsteroid()
     {
         Destroy(gameObject);
+        GameManager.AsteroidDestroyed();
         
         if (asteroidSize == AsteroidSize.Small) { return; }
         
